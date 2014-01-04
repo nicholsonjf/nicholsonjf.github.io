@@ -3,6 +3,18 @@
 &lt;p&gt;All in all it was a very interesting talk, showcasing a cool use-case of Python in an educational setting. For another really interesting watch, check out &lt;a href="http://youtu.be/Sg5glDFjWNg" title="Peter Farrell YouTube video about modeling eliptical orbits"&gt;Peter's YouTube video about modeling eliptical orbits with visual python&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;br&gt;&lt;/p&gt;
 &lt;iframe width="560" height="315" src="//www.youtube.com/embed/HfvQ6O7Di0g" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;</summary><category term="Python"></category><category term="BayPiggies"></category></entry><entry><title>Tips-n-Tricks</title><link href="http://nicholsonjf.com/blog/tips-n-tricks" rel="alternate"></link><updated>2014-01-01T00:00:00-08:00</updated><author><name>James Nicholson</name></author><id>tag:nicholsonjf.com,2014-01-01:blog/tips-n-tricks</id><summary type="html">&lt;p&gt;This is a temporary post I'm using to document short snippets of code and commands I want to remember. Eventually I'm going to build a separate page into nicholsonjf.com where I can upload and display these in a cleaner and more accessible manner. Until then, this is &lt;a href="http://nicholsonjf.com/blog/good-enough" title="Good-Enough blog post"&gt;good enough!&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;Create a local git repo and push it to Github&lt;/h3&gt;
+&lt;p&gt;Date: 2014-01-03&lt;br /&gt;
+Tags: ubuntu, git, github&lt;br /&gt;
+Sources: &lt;a href="http://stackoverflow.com/questions/11276364/after-creating-a-local-git-repo-how-do-i-push-it-on-github" title="Stack overflow question"&gt;stack overflow post&lt;/a&gt;, &lt;a href="https://help.github.com/articles/create-a-repo" title="Github create repo"&gt;github&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;First, &lt;a href="https://help.github.com/articles/create-a-repo" title="Github create repo"&gt;create the repo on Github&lt;/a&gt;. Make sure to initialize it with a README file.&lt;/p&gt;
+&lt;p&gt;Then, &lt;code&gt;cd&lt;/code&gt; into the local directory you want to push.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git init&lt;/code&gt; to initialize the local repo.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git add -A&lt;/code&gt; to track all files.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git commit -m "commit note"&lt;/code&gt; to commit the changes.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git add origin git remote add origin https://github.com/username/repo-name.git&lt;/code&gt; to add the Github repo as a remote.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git pull origin master&lt;/code&gt; this will pull down the README file from Github and prevent a fastforward error when you push.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;git push origin master&lt;/code&gt; enter your username and password to github. The github repo should now be caught up with your local repo.&lt;/p&gt;
 &lt;h3&gt;Check if package is installed&lt;/h3&gt;
 &lt;p&gt;Date: 2014-01-01&lt;br /&gt;
 Tags: ubuntu, bash&lt;br /&gt;

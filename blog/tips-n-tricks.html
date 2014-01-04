@@ -96,6 +96,18 @@
 </footer><!-- /.post-info -->                    </div>
                 </div>
                 <p>This is a temporary post I'm using to document short snippets of code and commands I want to remember. Eventually I'm going to build a separate page into nicholsonjf.com where I can upload and display these in a cleaner and more accessible manner. Until then, this is <a href="http://nicholsonjf.com/blog/good-enough" title="Good-Enough blog post">good enough!</a></p>
+<h3>Create a local git repo and push it to Github</h3>
+<p>Date: 2014-01-03<br />
+Tags: ubuntu, git, github<br />
+Sources: <a href="http://stackoverflow.com/questions/11276364/after-creating-a-local-git-repo-how-do-i-push-it-on-github" title="Stack overflow question">stack overflow post</a>, <a href="https://help.github.com/articles/create-a-repo" title="Github create repo">github</a></p>
+<p>First, <a href="https://help.github.com/articles/create-a-repo" title="Github create repo">create the repo on Github</a>. Make sure to initialize it with a README file.</p>
+<p>Then, <code>cd</code> into the local directory you want to push.</p>
+<p><code>git init</code> to initialize the local repo.</p>
+<p><code>git add -A</code> to track all files.</p>
+<p><code>git commit -m "commit note"</code> to commit the changes.</p>
+<p><code>git add origin git remote add origin https://github.com/username/repo-name.git</code> to add the Github repo as a remote.</p>
+<p><code>git pull origin master</code> this will pull down the README file from Github and prevent a fastforward error when you push.</p>
+<p><code>git push origin master</code> enter your username and password to github. The github repo should now be caught up with your local repo.</p>
 <h3>Check if package is installed</h3>
 <p>Date: 2014-01-01<br />
 Tags: ubuntu, bash<br />
@@ -166,13 +178,18 @@ ii  curl                         7.22.0-3ubuntu4.6            Get a file from an
 
             <li class="list-group-item"><a href="http://nicholsonjf.com/tags.html"><h4><i class="icon-tags icon-large"></i>Tags</h4></a></li>
                 <li class="list-group-item tag-1">
+                    <a href="http://nicholsonjf.com/tags/baypiggies">
+                        BayPiggies
+                    </a>
+                </li>
+                <li class="list-group-item tag-1">
                     <a href="http://nicholsonjf.com/tags/python">
                         Python
                     </a>
                 </li>
-                <li class="list-group-item tag-1">
-                    <a href="http://nicholsonjf.com/tags/baypiggies">
-                        BayPiggies
+                <li class="list-group-item tag-4">
+                    <a href="http://nicholsonjf.com/tags/howto">
+                        howto
                     </a>
                 </li>
                 <li class="list-group-item tag-4">
@@ -183,11 +200,6 @@ ii  curl                         7.22.0-3ubuntu4.6            Get a file from an
                 <li class="list-group-item tag-4">
                     <a href="http://nicholsonjf.com/tags/ubuntu">
                         Ubuntu
-                    </a>
-                </li>
-                <li class="list-group-item tag-4">
-                    <a href="http://nicholsonjf.com/tags/howto">
-                        howto
                     </a>
                 </li>
         </ul>
