@@ -3,7 +3,7 @@
       xmlns:og="http://ogp.me/ns#"
       xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-    <title>Good Enough is good enough!</title>
+    <title>Return a List of Every Entry in Websters 1913 Dictionary with One Python Regex</title>
     <!-- Using the latest rendering mode for IE -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
@@ -26,9 +26,9 @@
 
             <meta property="fb:app_id" content="202018593182706"/>
             <meta property="og:type" content="article"/>
-            <meta property="og:title" content="Good Enough is good enough!"/>
-            <meta property="og:url" content="http://nicholsonjf.com/blog/good-enough"/>
-            <meta property="og:description" content="Last month I signed up as a volunteer videographer for one of my favorite local software communities, BayPiggies (Bay Area Python Interest Group). As a relatively new programmer, I've been looking for ways to get involved with an open-source project. Shooting some video once a month seemed like something ..."/>
+            <meta property="og:title" content="Return a List of Every Entry in Websters 1913 Dictionary with One Python Regex"/>
+            <meta property="og:url" content="http://nicholsonjf.com/blog/one-regex"/>
+            <meta property="og:description" content="Regular expressions are amazing. In a text file that contains the entire Webster's Unabridged Dictionary (over 4.5 million words) you can use one regular expression (36 characters) to match only the 103,039 dictionary entries. Here's how:"/>
 
     <!-- Bootstrap -->
         <link rel="stylesheet" href="http://nicholsonjf.com/theme/css/bootstrap.readable.min.css" type="text/css"/>
@@ -73,10 +73,10 @@
         <article>
             <header class="page-header">
                 <h1>
-                    <a href="http://nicholsonjf.com/blog/good-enough"
+                    <a href="http://nicholsonjf.com/blog/one-regex"
                        rel="bookmark"
-                       title="Permalink to Good Enough is good enough!">
-                        Good Enough is good enough!
+                       title="Permalink to Return a List of Every Entry in Websters 1913 Dictionary with One Python Regex">
+                        Return a List of Every Entry in Websters 1913 Dictionary with One Python Regex
                     </a>
                 </h1>
             </header>
@@ -86,7 +86,7 @@
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="icon-calendar"></i>Tue 05 November 2013
+        <i class="icon-calendar"></i>Wed 15 January 2014
     </span>
 
 
@@ -94,12 +94,63 @@
 <span class="label label-default">Tags</span>
 	<a href="http://nicholsonjf.com/tags/python">Python</a>
         /
-	<a href="http://nicholsonjf.com/tags/baypiggies">BayPiggies</a>
+	<a href="http://nicholsonjf.com/tags/regex">Regex</a>
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Last month I signed up as a volunteer videographer for one of my favorite local software communities, <a href="http://baypiggies.net" title="BayPiggies Python Interest Group">BayPiggies</a> (Bay Area Python Interest Group). As a relatively new programmer, I've been looking for ways to get involved with an open-source project. Shooting some video once a month seemed like something I could handle.</p>
-<p>The typical format of a BayPiggies meeting is: announcements, introduce speaker, listen to speaker, Q&amp;A. The first meeting I recorded on Thursday October 24th was no different. The speaker was <a href="http://en.wikipedia.org/wiki/Alex_Martelli" title="Alex Martelli's Wikipedia page">Alex Martelli</a>, who is an "Uber Technical Lead" at Google and <a href="http://stackoverflow.com/users/95810/alex-martelli" title="Alex Martelli's Stack Overflow Profile">epic contributor on Stack Overflow</a>. He gave a really interesting talk about our obsession with perfection as a society and how that doesn't really work well with software development in general.</p>
-<p>You can watch the entire talk on youtube, <a href="http://youtu.be/GcdcLoEJleI" title="Link to Alex Martelli talk on Youtube">here</a>. A quote from the BayPiggies teaser for Alex's talk describes what I believe to be the key takeaway: "keep the software simple, just "good enough", launch it early, and iteratively improve, enhance, and re-factor it. This is how software success is achieved!</p>
+                <p>First, you'll need to visit <a href="http://www.gutenberg.org/ebooks/29765" title="Webster's 1913 dictionary on Project Gutenberg">http://www.gutenberg.org/ebooks/29765</a> and download the 'Plain Text UTF-8' file. This is the 1913 edition of Webster's Unabridged Dictionary, as a 27.6 MB text file. Save this as 'dictionary.txt'.</p>
+<p>Next, create your python script in the same directory you saved your text file. I called mine 'search.py'.</p>
+<p>Start your script by importing Python's regular expression module.</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">re</span>
+</pre></div>
+
+
+<p>Next, open your 'dictionary.txt' file and initialize it as a file object.</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;dictionary.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dictionary</span><span class="p">:</span>
+</pre></div>
+
+
+<p>After that, convert the text file into a string and store it in a variable.</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;dictionary.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dictionary</span><span class="p">:</span>
+    <span class="n">dicstring</span> <span class="o">=</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Our next variable will store the regex itself, which I'll explain in detail.</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;dictionary.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dictionary</span><span class="p">:</span>
+    <span class="n">dicstring</span> <span class="o">=</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(?&lt;=\r\n\r\n)[A-Z]+(?![a-z])(?=\r\n)&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The <code>re.compile</code> part allows us to store a regex in a variable, so we can use it later if need be. The function takes a string as an arguement for the regular expression. The <code>r</code> before the regex string tells python to interpret the quoted text as a <a href="http://docs.python.org/2/reference/lexical_analysis.html#string-literals" title="Python string literals">raw string</a> and avoids the <a href="http://docs.python.org/2/howto/regex.html#the-backslash-plague" title="Python regex backslash plague">backslash plague</a> in Python's re module. The <code>(?&lt;=...)</code> section is a <a href="http://docs.python.org/2/library/re.html#regular-expression-syntax" title="Python regex syntax">positive lookbehind assertion</a> and tells the regex engine to only match a string if it is preceded by <code>...</code>. Our lookbehind assertion is <code>\r\n\r\n</code> because every entry in our dictionary file is preceded by this string. The next chunk is our actual matching pattern, <code>[A-Z]+</code>. This bit says, match one or more continuous uppercase letters (preceded by <code>\r\n</code> because of the lookbehind assertion). The next part <code>(?!...)</code> is a negative lookahead assertion, and tells python to only return a match if the pattern is NOT followed by <code>...</code>, which for us is <code>[a-z]</code> or any lowercase letter. The negative lookahead assertion is required because there are certain title case words (i.e 'Help') at the end of the text file that were matching. The regular expression ends with a positive lookahead assertion, <code>(?=...)</code> that tells Python to match only if the pattern IS followed by <code>...</code>, in our case <code>\r\n</code> (all dictionary entries in the text file are followed by this string).</p>
+<p>To actually run our compiled regular expression against the dictionary stored as a string, we'll use the re.findall function and store the result in the variable <code>entries</code>. As you can see below, re.finall(expression, string) takes two arguments, the first being the compiled regular expression and the second being the string to match against.  </p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;dictionary.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dictionary</span><span class="p">:</span>
+    <span class="n">dicstring</span> <span class="o">=</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(?&lt;=\r\n\r\n)[A-Z]+(?![a-z])(?=\r\n)&#39;</span><span class="p">)</span>
+    <span class="n">entries</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">dicstring</span><span class="p">)</span>  
+</pre></div>
+
+
+<p>Below is the entire script, along with some commented out code that can be uncommented to print various other interesting things to the console.</p>
+<div class="highlight"><pre><span class="kn">import</span> <span class="nn">re</span><span class="o">,</span> <span class="nn">random</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;dictionary.txt&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">dictionary</span><span class="p">:</span>
+    <span class="n">dicstring</span> <span class="o">=</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">pat</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;(?&lt;=\r\n\r\n)[A-Z]+(?![a-z])(?=\r\n)&#39;</span><span class="p">)</span>
+    <span class="n">pat1</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;[A-Za-z]+&#39;</span><span class="p">]</span> <span class="c"># This regex will match (approximately) all</span>
+<span class="n">words</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">text</span> <span class="nb">file</span>
+    <span class="n">entries</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">pat</span><span class="p">,</span> <span class="n">dicstring</span><span class="p">)</span>
+    <span class="c">##Uncomment the below line to see the actual string (with &#39;\r\n&#39; etc.)</span>
+    <span class="c">#print repr(dicstring)</span>
+    <span class="c">##Uncomment the below line to print the number of words matched</span>
+    <span class="c">#print len(entries)</span>
+    <span class="c">##Uncomment the below line to print your list of dictionary entries</span>
+    <span class="c">#print entries</span>
+</pre></div>
             </div>
             <!-- /.entry-content -->
     <hr />
@@ -109,8 +160,8 @@
         <script type="text/javascript">
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = 'nicholsonjf'; // required: replace example with your forum shortname
-            var disqus_identifier = 'good-enough';
-            var disqus_url = 'http://nicholsonjf.com/blog/good-enough';
+            var disqus_identifier = 'one-regex';
+            var disqus_url = 'http://nicholsonjf.com/blog/one-regex';
 
             /* * * DON'T EDIT BELOW THIS LINE * * */
             (function () {
